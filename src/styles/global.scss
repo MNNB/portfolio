@@ -1,0 +1,93 @@
+@import 'variables';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  cursor: none;
+}
+
+a, 
+button, 
+input[type="button"],
+input[type="submit"] {
+  cursor: none;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (pointer: coarse) {
+  body,
+  a,
+  button,
+  input[type="button"],
+  input[type="submit"] {
+    cursor: auto;
+  }
+} 
+
+@font-face {
+  font-family: 'Offbit';
+  src: url('/fonts/offbit/Offbit-Regular.woff2') format('woff2'),
+       url('/fonts/offbit/Offbit-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Apply Offbit to numerical content
+.number, 
+[class*="number"],
+time,
+.date,
+.stats,
+.count {
+  font-family: var(--font-numbers) !important;
+} 
+
+// Add specific number classes
+.year,
+.project-number,
+.section-number,
+[class*="-count"],
+[class*="-number"] {
+  font-family: var(--font-numbers) !important;
+} 

@@ -1,0 +1,61 @@
+:root {
+  // Colors
+  --color-background: #ffffff;
+  --color-background-rgb: 255, 255, 255;
+  --color-text: #0D0D0D;
+  --color-accent: #FF2E00;
+  --color-muted: #666666;
+  --color-border: #E5E5E5;
+  
+  // Typography
+  --font-primary: 'Space Grotesk', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-numbers: 'Offbit', monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 3rem;
+  --font-size-4xl: 4rem;
+  
+  // Spacing
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+  
+  // Grid
+  --grid-gap: 2rem;
+  --grid-columns: 12;
+  
+  // Transitions
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  // Z-indices
+  --z-cursor: 9999;
+  --z-navigation: 1000;
+  --z-overlay: 100;
+  --z-content: 1;
+}
+
+[data-theme="dark"] {
+  --color-background: #0D0D0D;
+  --color-background-rgb: 13, 13, 13;
+  --color-text: #FFFFFF;
+  --color-accent: #FF2E00;
+  --color-muted: #999999;
+  --color-border: #333333;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-slow: 0s;
+    --transition-normal: 0s;
+    --transition-fast: 0s;
+  }
+} 

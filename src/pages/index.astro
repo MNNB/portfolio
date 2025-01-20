@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/home/Hero.astro';
+import WorkGrid from '../components/home/WorkGrid.astro';
+---
+
+<Layout 
+  title="F-XD | Product Designer Portfolio"
+  description="F-XD is a product designer specializing in creating intuitive and engaging digital experiences through thoughtful UX/UI design."
+>
+  <Hero />
+  <WorkGrid />
+</Layout>
+
+<script>
+  // Import Three.js background for Hero section
+  import '../scripts/three/heroBackground';
+</script>

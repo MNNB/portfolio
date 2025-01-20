@@ -1,0 +1,280 @@
+---
+import { projects } from '../../data/projects';
+---
+
+<section id="work" class="work-section">
+  <div class="container">
+    <header class="section-header">
+      <h2 class="section-title">Selected Work</h2>
+      <span class="section-number">01</span>
+    </header>
+    
+    <div class="work-grid">
+      {projects.map((project, index) => (
+        <a href={`/projects/${project.slug}`} class="project-card">
+          <div class="project-image">
+            <img 
+              src={project.thumbnail} 
+              alt={project.title}
+              width="800"
+              height="600"
+              loading="lazy"
+            />
+            <div class="project-overlay">
+              <span class="project-number number">{(index + 1).toString().padStart(2, '0')}</span>
+              <div class="project-meta">
+                <span class="year number">2024</span>
+                <span class="separator">/</span>
+                <span class="category">{project.categories[0]}</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">{project.title}</h3>
+            <p class="project-description">{project.description}</p>
+            <div class="project-footer">
+              <div class="tags">
+                {project.categories.map((category) => (
+                  <span class="tag">{category}</span>
+                ))}
+              </div>
+              <span class="view-project">
+                View Project
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .work-section {
+    padding: var(--spacing-xl) 0;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .section-title {
+    font-size: var(--font-size-4xl);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .section-number {
+    font-family: var(--font-numbers);
+    font-size: var(--font-size-lg);
+    color: var(--color-accent);
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--grid-gap);
+    
+    .project-card {
+      &:nth-child(3n+1) {
+        grid-column: span 7;
+      }
+      
+      &:nth-child(3n+2) {
+        grid-column: span 5;
+      }
+      
+      &:nth-child(3n) {
+        grid-column: span 6;
+      }
+      
+      &:nth-child(even) {
+        margin-top: var(--spacing-xl);
+      }
+    }
+  }
+
+  .project-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-background);
+    max-width: 100%;
+    
+    &:hover {
+      .project-image img {
+        transform: scale(1.05);
+      }
+      
+      .project-overlay {
+        opacity: 1;
+      }
+
+      .view-project svg {
+        transform: translate(4px, -4px);
+      }
+    }
+  }
+
+  .project-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+  }
+
+  .project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(var(--color-background-rgb), 0.9);
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+  }
+
+  .project-number {
+    font-family: var(--font-numbers);
+    font-size: var(--font-size-xl);
+  }
+
+  .project-meta {
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    
+    .separator {
+      margin: 0 0.5em;
+      color: var(--color-accent);
+    }
+  }
+
+  .project-info {
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-top: none;
+  }
+
+  .project-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-xs);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
+  .project-description {
+    color: var(--color-muted);
+    margin-bottom: var(--spacing-md);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+  }
+
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tags {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+
+  .tag {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25em 0.75em;
+    background: var(--color-border);
+    border-radius: 2px;
+  }
+
+  .view-project {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    
+    svg {
+      transition: transform var(--transition-normal);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .work-grid {
+      .project-card {
+        &:nth-child(n) {
+          grid-column: span 6;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .work-grid {
+      .project-card {
+        &:nth-child(n) {
+          grid-column: 1 / -1;
+        }
+      }
+    }
+
+    .section-header {
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .project-overlay {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const projectCards = document.querySelectorAll('.project-card');
+
+  projectCards.forEach((card, index) => {
+    gsap.from(card, {
+      opacity: 0,
+      y: 50,
+      duration: 0.8,
+      delay: index * 0.2,
+      scrollTrigger: {
+        trigger: card,
+        start: 'top bottom-=100',
+        toggleActions: 'play none none reverse'
+      }
+    });
+  });
+</script> 

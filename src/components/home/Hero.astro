@@ -1,0 +1,110 @@
+---
+---
+
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <h1 class="hero-title">
+      <span class="line">Creative</span>
+      <span class="line">Product Designer</span>
+      <span class="line">Based in Paris</span>
+    </h1>
+    <p class="hero-subtitle">Crafting digital experiences that merge form and function</p>
+    <a href="#work" class="scroll-cta">
+      View Work
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <polyline points="19 12 12 19 5 12"></polyline>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style lang="scss">
+  .hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  #hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 var(--spacing-md);
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: var(--spacing-md);
+
+    .line {
+      display: block;
+      overflow: hidden;
+      
+      span {
+        display: block;
+        transform: translateY(100%);
+        opacity: 0;
+      }
+    }
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-muted);
+    margin-bottom: var(--spacing-lg);
+    opacity: 0;
+  }
+
+  .scroll-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: var(--color-text);
+    opacity: 0;
+
+    svg {
+      transition: transform var(--transition-normal);
+    }
+
+    &:hover svg {
+      transform: translateY(0.25rem);
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  tl.to('.hero-title .line span', {
+    y: 0,
+    opacity: 1,
+    duration: 1,
+    stagger: 0.2
+  })
+  .to('.hero-subtitle', {
+    opacity: 1,
+    duration: 0.8
+  }, '-=0.4')
+  .to('.scroll-cta', {
+    opacity: 1,
+    duration: 0.8
+  }, '-=0.4');
+</script> 

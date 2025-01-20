@@ -1,0 +1,105 @@
+I have setup a new project with Astro and installed the necessary packages. 
+
+I now want to create a product designer portfolio website for F-XD using Astro.js, Three.js, Vite, and Vanilla CSS/Sass (no Tailwind). The design should follow a bold, minimalistic aesthetic inspired by Awwwards and FWA winners.
+
+Technical Requirements:
+- Tech Stack: Astro.js, Three.js, Vite, Vanilla CSS/Sass
+- Custom light/dark theme toggle with smooth transitions
+- Fully responsive design
+- Performance optimized
+- Smooth page transitions and scroll animations
+- SEO optimized
+
+Design Style:
+- Monochromatic color scheme (black, white, grays)
+- Bold typography with high contrast
+- Minimal UI elements
+- Generous whitespace
+- Custom cursor
+- Subtle hover effects
+- Smooth CSS animations and transitions
+- Anti-skeuomorphic design principles
+
+Layout Structure:
+
+1. Global Elements:
+- Sticky navigation bar with minimal design
+- Theme toggle switch
+- Custom animated cursor
+- Smooth scroll behavior
+
+2. Homepage (/):
+- Hero Section:
+  * Large, bold typography
+  * Interactive 3D background using Three.js (abstract geometric shapes that react to mouse movement)
+  * Parallax scrolling effects
+  * Animated text reveals
+
+- Work Section:
+  * Grid layout for project cards
+  * Hover animations on project cards
+  * Each card should include:
+    - Project thumbnail
+    - Project title
+    - Brief description
+    - Category/tags
+    - Smooth transition on hover
+    - Link to case study
+
+- About Section:
+  * Split layout with images and text
+  * Animated text reveals
+  * Professional headshots (placeholder: Unsplash)
+  * Brief bio with animated typing effect
+
+3. Case Study Template (/projects/[slug]):
+- Hero Section:
+  * Project title with large typography
+  * Project summary
+  * Key details (role, duration, tools used)
+  * Client information
+
+- Content Sections:
+  * Problem statement
+  * Solution overview
+  * Process documentation
+  * High-resolution project images
+  * Interactive prototypes where applicable
+  * Results and outcomes
+  * Next/Previous project navigation
+
+Features:
+- Dynamic image loading with blur placeholders
+- Scroll-triggered animations
+- Interactive 3D elements
+- Custom scroll progress indicator
+- Smooth page transitions
+- Dynamic meta tags for SEO
+- Contact form with validation
+- Image gallery with lightbox
+- Social media integration
+
+CSS/Animation Requirements:
+- Use CSS custom properties for theming
+- Hardware-accelerated animations
+- GSAP for complex animations
+- Intersection Observer for scroll animations
+- CSS Grid and Flexbox for layouts
+- Mobile-first approach
+- Smooth theme transitions
+- Optimized animation performance
+
+Accessibility:
+- WCAG 2.1 compliance
+- Keyboard navigation support
+- Screen reader friendly
+- Proper ARIA labels
+- Focus states
+- Reduced motion support
+
+Performance Targets:
+- Lighthouse score > 90
+- First contentful paint < 1.5s
+- Time to interactive < 3.5s
+- Optimized asset loading
+- Lazy loading for images and components

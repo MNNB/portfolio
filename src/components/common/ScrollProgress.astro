@@ -1,0 +1,35 @@
+<div class="scroll-progress"></div>
+
+<style lang="scss">
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: var(--z-navigation);
+    &::after {
+      content: attr(data-progress) '%';
+      position: absolute;
+      right: var(--spacing-sm);
+      top: var(--spacing-sm);
+      font-family: var(--font-numbers);
+      font-size: var(--font-size-sm);
+    }
+  }
+</style>
+
+<script>
+  const scrollProgress = document.querySelector('.scroll-progress');
+
+  window.addEventListener('scroll', () => {
+    const windowScroll = document.documentElement.scrollTop;
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (windowScroll / windowHeight) * 100;
+    
+    scrollProgress.style.transform = `scaleX(${scrolled / 100})`;
+  });
+</script> 

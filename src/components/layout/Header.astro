@@ -1,0 +1,218 @@
+---
+import ThemeToggle from '../common/ThemeToggle.astro';
+---
+
+<header>
+  <nav>
+    <a href="/" class="logo">
+      <img src="/images/logo.svg" alt="F-XD Logo" width="48" height="48" class="logo-svg" />
+    </a>
+    
+    <button class="burger-menu" aria-label="Toggle menu" aria-expanded="false">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="/#work">Work</a>
+        <a href="/about">About</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <ThemeToggle />
+    </div>
+  </nav>
+</header>
+
+<style lang="scss">
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: var(--z-navigation);
+    padding: var(--spacing-sm) var(--spacing-md);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(
+        to bottom,
+        rgba(var(--color-background-rgb), 0.9) 0%,
+        rgba(var(--color-background-rgb), 0.8) 50%,
+        rgba(var(--color-background-rgb), 0) 100%
+      );
+      pointer-events: none;
+    }
+  }
+
+  nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    z-index: var(--z-navigation);
+    
+    .logo-svg {
+      width: 48px;
+      height: 48px;
+      transition: transform var(--transition-normal);
+    }
+
+    &:hover .logo-svg {
+      transform: scale(1.05);
+    }
+  }
+
+  .burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: var(--z-navigation);
+    padding: 0;
+
+    .burger-line {
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-text);
+      transition: transform var(--transition-normal),
+                  opacity var(--transition-normal);
+    }
+
+    &[aria-expanded="true"] {
+      .burger-line {
+        &:first-child {
+          transform: translateY(9px) rotate(45deg);
+        }
+        &:nth-child(2) {
+          opacity: 0;
+        }
+        &:last-child {
+          transform: translateY(-9px) rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--spacing-md);
+    
+    a {
+      text-decoration: none;
+      color: var(--color-text);
+      transition: color var(--transition-fast);
+      
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .burger-menu {
+      display: flex;
+    }
+
+    .nav-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--color-background);
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--spacing-lg);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--transition-normal),
+                  visibility var(--transition-normal);
+
+      &.active {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .nav-links {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-lg);
+      
+      a {
+        font-size: 2rem;
+        font-weight: 700;
+      }
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+
+  // Initial animation
+  gsap.from('.logo-svg', {
+    scale: 0,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'elastic.out(1, 0.5)',
+    transformOrigin: 'center'
+  });
+
+  // Burger menu functionality
+  const burgerMenu = document.querySelector('.burger-menu');
+  const navContainer = document.querySelector('.nav-container');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  burgerMenu?.addEventListener('click', () => {
+    const isExpanded = burgerMenu.getAttribute('aria-expanded') === 'true';
+    burgerMenu.setAttribute('aria-expanded', (!isExpanded).toString());
+    navContainer?.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    document.body.style.overflow = isExpanded ? '' : 'hidden';
+  });
+
+  // Close menu when clicking a link
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      burgerMenu?.setAttribute('aria-expanded', 'false');
+      navContainer?.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close menu when pressing Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navContainer?.classList.contains('active')) {
+      burgerMenu?.setAttribute('aria-expanded', 'false');
+      navContainer.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+</script> 

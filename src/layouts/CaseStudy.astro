@@ -1,0 +1,244 @@
+---
+import Layout from './Layout.astro';
+import type { CaseStudy } from '../types/caseStudy';
+
+interface Props {
+  frontmatter: CaseStudy;
+}
+
+const { frontmatter } = Astro.props;
+const { 
+  title, 
+  description, 
+  role,
+  client,
+  duration,
+  year,
+  services,
+  thumbnail,
+  heroImage,
+  nextProject 
+} = frontmatter;
+---
+
+<Layout title={`${title} | F-XD Case Study`} description={description}>
+  <article class="case-study">
+    <header class="case-hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="title">{title}</h1>
+            <p class="description">{description}</p>
+            <dl class="meta-list">
+              <div class="meta-item">
+                <dt>Role</dt>
+                <dd>{role}</dd>
+              </div>
+              <div class="meta-item">
+                <dt>Client</dt>
+                <dd>{client}</dd>
+              </div>
+              <div class="meta-item">
+                <dt>Duration</dt>
+                <dd>{duration}</dd>
+              </div>
+              <div class="meta-item">
+                <dt>Year</dt>
+                <dd class="number">{year}</dd>
+              </div>
+              <div class="meta-item">
+                <dt>Services</dt>
+                <dd>{services.join(', ')}</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="hero-image">
+            <img src={heroImage} alt={title} width="800" height="600" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="case-content">
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="case-footer">
+      <div class="container">
+        <a href={`/projects/${nextProject.slug}`} class="next-project">
+          <span class="label">Next Project</span>
+          <h2 class="title">{nextProject.title}</h2>
+          <div class="preview">
+            <img src={nextProject.thumbnail} alt={nextProject.title} width="400" height="300" />
+          </div>
+        </a>
+      </div>
+    </footer>
+  </article>
+</Layout>
+
+<style lang="scss">
+  .case-study {
+    padding-top: var(--spacing-xl);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .case-hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+  }
+
+  .hero-text {
+    .title {
+      font-size: var(--font-size-4xl);
+      line-height: 1;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .description {
+      font-size: var(--font-size-xl);
+      color: var(--color-muted);
+      margin-bottom: var(--spacing-lg);
+      max-width: 40ch;
+    }
+  }
+
+  .meta-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .meta-item {
+    dt {
+      font-family: var(--font-mono);
+      font-size: var(--font-size-sm);
+      color: var(--color-muted);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    dd {
+      font-size: var(--font-size-lg);
+      &:matches(:has(time), .year, .duration) {
+        font-family: var(--font-numbers);
+      }
+    }
+  }
+
+  .hero-image {
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+
+  .case-content {
+    margin-bottom: var(--spacing-xl);
+
+    :global(h2) {
+      font-size: var(--font-size-2xl);
+      margin: var(--spacing-lg) 0 var(--spacing-md);
+    }
+
+    :global(p) {
+      font-size: var(--font-size-lg);
+      color: var(--color-muted);
+      max-width: 65ch;
+      margin-bottom: var(--spacing-md);
+    }
+
+    :global(img) {
+      width: 100%;
+      height: auto;
+      margin: var(--spacing-lg) 0;
+    }
+
+    :global(ul, ol) {
+      margin: var(--spacing-md) 0;
+      padding-left: var(--spacing-lg);
+    }
+  }
+
+  .case-footer {
+    padding: var(--spacing-xl) 0;
+    background: var(--color-border);
+  }
+
+  .next-project {
+    display: block;
+    
+    .label {
+      font-family: var(--font-mono);
+      font-size: var(--font-size-sm);
+      color: var(--color-muted);
+      margin-bottom: var(--spacing-sm);
+      display: block;
+    }
+
+    .title {
+      font-size: var(--font-size-3xl);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .preview {
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform var(--transition-normal);
+      }
+    }
+
+    &:hover {
+      .preview img {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+
+    .meta-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .stats-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    
+    .stat-item {
+      .stat-number {
+        font-family: var(--font-numbers);
+        font-size: var(--font-size-3xl);
+        line-height: 1;
+        margin-bottom: var(--spacing-xs);
+      }
+    }
+  }
+</style> 
